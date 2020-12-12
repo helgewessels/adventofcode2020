@@ -9,12 +9,13 @@ class Day12Spec extends Specification {
     Day12 day12 = new Day12()
 
     def part1() {
-        when:
-        def result = day12.part1(input)
+        expect:
+        day12.part1(input) == 759
+    }
 
-        then:
-        println("Part 1: $result")
-        result == 759
+    def part2() {
+        expect:
+        day12.part2(input) == 45763
     }
 
     def readInstructions() {
@@ -32,14 +33,19 @@ class Day12Spec extends Specification {
 
         then:
         instructions.size() == 5
-        instructions[0] == new Instruction.Forward(10)
-        instructions[1] == new Instruction.North(3)
-        instructions[2] == new Instruction.Forward(7)
-        instructions[3] == new Instruction.Right(90)
-        instructions[4] == new Instruction.Forward(11)
+        instructions[0] instanceof Instruction.Forward
+        instructions[0].value == 10
+        instructions[1] instanceof Instruction.North
+        instructions[1].value == 3
+        instructions[2] instanceof Instruction.Forward
+        instructions[2].value == 7
+        instructions[3] instanceof Instruction.Right
+        instructions[3].value == 90
+        instructions[4] instanceof Instruction.Forward
+        instructions[4].value == 11
     }
 
-    def 'execute instructions'() {
+    def 'execute instructions with MoveShip navigation strategy'() {
         given:
         def instructions = day12.readInstructions('''
             F10
@@ -48,44 +54,50 @@ class Day12Spec extends Specification {
             R90
             F11
         ''')
-        def startShipState = new ShipState(0, 0, 90)
+        def startPosition = new Position(0, 0)
+        def startDirection = new Position(1, 0)
+        def startShip = new Ship(startPosition, startDirection, new Ship.NavigationStrategy.MoveShip())
 
         when:
-        def shipState = day12.execute(instructions, startShipState)
+        def ship = day12.execute(instructions, startShip)
 
         then:
-        shipState.eastPosition == 17
-        shipState.southPosition == 8
-        shipState.manhattanDistance == 25
+        ship.position == new Position(17, 8)
+        ship.position.manhattanDistance(startPosition) == 25
     }
 
-    @Unroll('move forward by #value in direction #direction results in position east #eastPosition, south #southPosition')
-    def 'forward instruction'(int direction, int value, int eastPosition, int southPosition) {
+    def 'execute instructions with MoveWaypoint navigation strategy'() {
         given:
-        def shipState = new ShipState(0, 0, direction)
-        def instruction = new Instruction.Forward(value)
+        def instructions = day12.readInstructions('''
+            F10
+            N3
+            F7
+            R90
+            F11
+        ''')
+        def startPosition = new Position(0, 0)
+        def startWaypoint = new Position(10, -1)
+        def startShip = new Ship(startPosition, startWaypoint, new Ship.NavigationStrategy.MoveWaypoint())
 
         when:
-        def resultingShipState = instruction.execute(shipState)
+        def ship = day12.execute(instructions, startShip)
 
         then:
-        resultingShipState.direction == shipState.direction
-        resultingShipState.eastPosition == eastPosition
-        resultingShipState.southPosition == southPosition
+        ship.position == new Position(214, 72)
+        ship.position.manhattanDistance(startPosition) == 286
+    }
+
+    @Unroll('rotate east #east, south #south by #degrees degrees results in east #expectedEast, south #expectedSouth')
+    def rotate(int east, int south, int degrees, int expectedEast, int expectedSouth) {
+        expect:
+        new Position(east, south).rotate(degrees) == new Position(expectedEast, expectedSouth)
 
         where:
-        direction | value || eastPosition | southPosition
-        0         | 0     || 0            | 0
-        0         | 1     || 0            | -1
-        90        | 2     || 2            | 0
-        180       | 2     || 0            | 2
-        270       | 2     || -2           | 0
-        360       | 3     || 0            | -3
-        450       | 3     || 3            | 0
-        540       | 3     || 0            | 3
-        630       | 3     || -3           | 0
-        -90       | 4     || -4           | 0
-        -180      | 4     || 0            | 4
-        -270      | 4     || 4            | 0
+        east | south | degrees || expectedEast | expectedSouth
+        1    | 1     | 0       || 1            | 1
+        1    | 1     | 90      || -1           | 1
+        1    | 1     | -90     || 1            | -1
+        1    | 1     | 270     || 1            | -1
+        1    | 1     | 180     || -1           | -1
     }
 }
