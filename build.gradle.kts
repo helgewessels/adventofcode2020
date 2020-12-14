@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     testImplementation("org.spockframework:spock-core:2.0-M4-groovy-3.0")
+    testImplementation("org.apache.commons:commons-lang3:3.11")
 }
 
 tasks.test {
