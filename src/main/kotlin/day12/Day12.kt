@@ -1,3 +1,5 @@
+package day12
+
 import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.roundToInt

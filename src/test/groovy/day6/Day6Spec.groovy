@@ -1,3 +1,5 @@
+package day6
+
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -10,21 +12,13 @@ class Day6Spec extends Specification {
     Day6 day6 = new Day6()
 
     def part1() {
-        when:
-        def result = day6.part1(input)
-
-        then:
-        println("Part 1: $result")
-        result == 6742
+        expect:
+        day6.part1(input) == 6742
     }
 
     def part2() {
-        when:
-        def result = day6.part2(input)
-
-        then:
-        println("Part 2: $result")
-        result == 3447
+        expect:
+        day6.part2(input) == 3447
     }
 
     def mapInput() {

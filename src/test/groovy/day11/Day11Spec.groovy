@@ -1,3 +1,5 @@
+package day11
+
 import spock.lang.Specification
 
 class Day11Spec extends Specification {
@@ -9,21 +11,13 @@ class Day11Spec extends Specification {
     SeatStrategy part2SeatStrategy = new SeatStrategy.Part2()
 
     def part1() {
-        when:
-        def result = day11.part1(input)
-
-        then:
-        println("Part 1: $result")
-        result == 2476
+        expect:
+        day11.part1(input) == 2476
     }
 
     def part2() {
-        when:
-        def result = day11.part2(input)
-
-        then:
-        println("Part 2: $result")
-        result == 2257
+        expect:
+        day11.part2(input) == 2257
     }
 
     def readField() {

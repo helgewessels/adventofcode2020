@@ -1,3 +1,5 @@
+package day5
+
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -8,6 +10,16 @@ class Day5Spec extends Specification {
 
     @Subject
     Day5 day5 = new Day5()
+
+    def part1() {
+        expect:
+        day5.part1(input) == 906
+    }
+
+    def part2() {
+        expect:
+        day5.part2(input) == 519
+    }
 
     @Unroll('#seat: ID #id')
     def seatId(String seat, int id) {
@@ -46,23 +58,5 @@ class Day5Spec extends Specification {
         'BFFFBBFRRR' || 7
         'FFFBBBFRRR' || 7
         'BBFFBBFRLL' || 4
-    }
-
-    def part1() {
-        when:
-        def result = day5.part1(input)
-
-        then:
-        println("Part 1: $result")
-        result == 906
-    }
-
-    def part2() {
-        when:
-        def result = day5.part2(input)
-
-        then:
-        println("Part 2: $result")
-        result == 519
     }
 }

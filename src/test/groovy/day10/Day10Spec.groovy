@@ -1,3 +1,5 @@
+package day10
+
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -9,12 +11,8 @@ class Day10Spec extends Specification {
     Day10 day10 = new Day10()
 
     def part1() {
-        when:
-        def result = day10.part1(input)
-
-        then:
-        println("Part 1: $result")
-        result == 1885
+        expect:
+        day10.part1(input) == 1885
     }
 
     def readNumbers() {

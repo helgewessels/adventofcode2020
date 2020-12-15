@@ -1,3 +1,5 @@
+package day9
+
 class Day9 {
 
     fun part1(input: String, offset: Int) =

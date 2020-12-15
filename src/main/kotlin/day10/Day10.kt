@@ -1,3 +1,5 @@
+package day10
+
 class Day10 {
 
     fun part1(input: String): Int {

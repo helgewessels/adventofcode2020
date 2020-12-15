@@ -1,3 +1,5 @@
+package day7
+
 class Day7 {
 
     fun part1(bag: String, input: String): Int =

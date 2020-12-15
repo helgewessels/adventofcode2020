@@ -1,3 +1,5 @@
+package day11
+
 class Day11 {
     fun part1(input: String) =
             readField(input).countLastOccupiedSeats(SeatStrategy.Part1())

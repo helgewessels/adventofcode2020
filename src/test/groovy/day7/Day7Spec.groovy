@@ -1,3 +1,5 @@
+package day7
+
 import kotlin.Pair
 import spock.lang.Specification
 import spock.lang.Subject
@@ -12,21 +14,13 @@ class Day7Spec extends Specification {
     Day7 day7 = new Day7()
 
     def part1() {
-        when:
-        def result = day7.part1(bag, input)
-
-        then:
-        println("Part 1: $result")
-        result == 121
+        expect:
+        day7.part1(bag, input) == 121
     }
 
     def part2() {
-        when:
-        def result = day7.part2(bag, input)
-
-        then:
-        println("Part 2: $result")
-        result == 3805
+        expect:
+        day7.part2(bag, input) == 3805
     }
 
     def readRules() {

@@ -1,3 +1,5 @@
+package day13
+
 class Day13 {
     fun part1(input: String) =
             readStartAndBusIds(input).let { startAndBusIds ->
