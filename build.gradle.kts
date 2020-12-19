@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    testImplementation("org.codehaus.groovy:groovy:3.0.7")
     testImplementation("org.spockframework:spock-core:2.0-M4-groovy-3.0")
     testImplementation("org.apache.commons:commons-lang3:3.11")
 }
